@@ -1,5 +1,5 @@
 import express from "express";
-import homeController, { handleHelloworld } from "../controller/homeController"
+import homeController from "../controller/homeController.js"
 
 const router = express.Router();
 
@@ -9,13 +9,9 @@ const router = express.Router();
  */
 const initWebRoutes = (app) => {
     // path and handle
-    router.get("/", homeController.handleHelloworld)
-
-    router.get("/user", homeController.handleUserPage)
-    router.get("/homepage", (req, res) => {
-        return res.send("homepage");
-    })
-    router.post("/users/create-user", homeController.handleCreateNewUser)
+    router.get("/", homeController.handleHelloworld);
+    router.get("/user", homeController.handleUserPage);
+    router.post("/users/create-user", homeController.handleCreateNewUser);
 
     return app.use("/", router);
 }

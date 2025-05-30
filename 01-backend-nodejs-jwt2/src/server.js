@@ -1,8 +1,11 @@
-require("dotenv").config();
+// require("dotenv").config();
+import dotenv from "dotenv";
 import express from "express";
-import configViewEngine from "./configs/viewEngine";
-import initWebRoutes from "./routes/web";
+import configViewEngine from "./configs/viewEngine.js";
+import initWebRoutes from "./routes/web.js";
 import bodyParser from "body-parser";
+
+dotenv.config();
 
 const app = express();
 
