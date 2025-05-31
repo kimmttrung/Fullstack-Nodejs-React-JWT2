@@ -36,7 +36,10 @@ const getListUser = () => {
         function (err, results, fields) {
             if (err) {
                 console.log(err);
+                return users;
             }
+            users = results;
+            return users;
         }
     )
 }

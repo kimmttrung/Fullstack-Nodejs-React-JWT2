@@ -6,6 +6,8 @@ const handleHelloworld = (req, res) => {
 
 const handleUserPage = (req, res) => {
     // model get database
+    let userList = userService.getListUser();
+    console.log(">> check user list", userList);
 
     return res.render("user.ejs");
 }
