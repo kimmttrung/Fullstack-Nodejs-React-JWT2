@@ -1,13 +1,9 @@
-// Get the client
-import mysql from 'mysql2';
 import bcrypt from 'bcryptjs';
+import mysql from 'mysql2/promise';
+import bluebird from 'bluebird';
 
-// Create the connection to database
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'jwt2',
-});
+// get the promise implementation, we will use bluebird
+
 const saltRounds = 10;
 
 const hashUserPassword = (userPassword) => {
@@ -28,20 +24,37 @@ const createNewUser = (email, password, username) => {
     )
 }
 
-const getListUser = () => {
+const getListUser = async () => {
+    // create the connection, specify bluebird as Promise
+    const connection = await mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'jwt2',
+        Promise: bluebird,
+    });
+
     let users = [];
 
-    connection.query(
-        'SELECT * FROM users',
-        function (err, results, fields) {
-            if (err) {
-                console.log(err);
-                return users;
-            }
-            users = results;
-            return users;
-        }
-    )
+    // connection.query(
+    //     'SELECT * FROM users',
+    //     function (err, results, fields) {
+    //         if (err) {
+    //             console.log(err);
+    //             return users;
+    //         }
+    //         users = results;
+    //         return users;
+    //     }
+    // )
+
+    try {
+        // For pool initialization, see above
+        const [rows, fields] = await connection.execute('SELECT * FROM users');
+        // console.log("check rows", rows);
+        return rows;
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 module.exports = {

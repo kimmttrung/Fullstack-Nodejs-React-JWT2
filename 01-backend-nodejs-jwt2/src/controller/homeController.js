@@ -4,12 +4,12 @@ const handleHelloworld = (req, res) => {
     return res.render("home.ejs");
 }
 
-const handleUserPage = (req, res) => {
+const handleUserPage = async (req, res) => {
     // model get database
-    let userList = userService.getListUser();
-    console.log(">> check user list", userList);
+    let userList = await userService.getListUser();
+    // console.log(">> check user list", userList);
 
-    return res.render("user.ejs");
+    return res.render("user.ejs", { userList });  // truyen bien qua object
 }
 
 const handleCreateNewUser = (req, res) => {
