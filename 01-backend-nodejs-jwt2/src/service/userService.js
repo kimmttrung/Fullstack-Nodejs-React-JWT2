@@ -11,17 +11,20 @@ const hashUserPassword = (userPassword) => {
     return hashPassword;
 }
 
-const createNewUser = (email, password, username) => {
+const createNewUser = async (email, password, username) => {
     let hashPassword = hashUserPassword(password);
+    const connection = await mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'jwt2',
+        Promise: bluebird,
+    });
 
-    connection.query(
-        'INSERT INTO users(email, password, username) VALUES(?, ?, ?)', [email, hashPassword, username],
-        function (err, results, fields) {
-            if (err) {
-                console.log(err);
-            }
-        }
-    )
+    try {
+        const [rows, fields] = await connection.execute('INSERT INTO users(email, password, username) VALUES(?, ?, ?)', [email, hashPassword, username]);
+    } catch (error) {
+        console.log(">>> check error", error);
+    }
 }
 
 const getListUser = async () => {
@@ -32,21 +35,6 @@ const getListUser = async () => {
         database: 'jwt2',
         Promise: bluebird,
     });
-
-    let users = [];
-
-    // connection.query(
-    //     'SELECT * FROM users',
-    //     function (err, results, fields) {
-    //         if (err) {
-    //             console.log(err);
-    //             return users;
-    //         }
-    //         users = results;
-    //         return users;
-    //     }
-    // )
-
     try {
         // For pool initialization, see above
         const [rows, fields] = await connection.execute('SELECT * FROM users');
@@ -57,7 +45,25 @@ const getListUser = async () => {
     }
 }
 
+const deleteUser = async (id) => {
+    // ;
+    const connection = await mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'jwt2',
+        Promise: bluebird,
+    });
+
+    try {
+        // For pool initialization, see above
+        const [rows, fields] = await connection.execute('DELETE FROM users WHERE id=?', [id]);
+        return rows;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
-    createNewUser, getListUser
+    createNewUser, getListUser, deleteUser
 }
 
