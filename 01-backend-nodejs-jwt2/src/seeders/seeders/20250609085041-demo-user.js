@@ -12,12 +12,12 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Users',
+    await queryInterface.bulkInsert('User',
       [
         {
-          email: 'fake@gmail.com',
-          password: '123',
-          username: 'John Doe',
+          email: 'trung@gmail.com',
+          password: '123456',
+          username: 'Trung Mai',
         },
         {
           email: 'fake1@gmail.com',
