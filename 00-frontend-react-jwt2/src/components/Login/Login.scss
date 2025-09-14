@@ -1,14 +1,51 @@
-.yellow {
-    border: 1px solid yellow;
-}
-
-.green {
-    border: 1px solid green;
-}
-
 .login-container {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    padding-top: 30px;
+    justify-content: center;
+
+    @media (min-width: 1024px) {
+        padding-top: 200px;
+    }
+
     .content-right {
         border-radius: 10px;
-        border: 1px solid red;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+        box-sizing: border-box;
+
+        .forgot-pasword {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .brand {
+            text-transform: uppercase;
+            font-size: 20px;
+            color: #1877f2;
+            text-align: center;
+            font-weight: 600;
+        }
+    }
+
+    .content-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 60px;
+
+        .brand {
+            text-transform: uppercase;
+            font-size: 30px;
+            color: #1877f2;
+            font-weight: 600;
+        }
+
+        .detail {
+            font-size: 20px;
+        }
     }
 }
