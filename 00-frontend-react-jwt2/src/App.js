@@ -7,6 +7,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Register from './components/Register/Register';
 function App() {
   return (
     <Router>
@@ -14,7 +15,7 @@ function App() {
       <div className='app-container'>
         <Switch>
           <Route path="/about">
-            abouat
+            about me
           </Route>
           <Route path="/users">
             usser
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="*">
             404 not found
