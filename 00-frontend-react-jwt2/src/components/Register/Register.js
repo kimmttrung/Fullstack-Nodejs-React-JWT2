@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Teashop from "../../assets/img/Teashop.png";
 import { useEffect, useState } from "react";
 // import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Register = (props) => {
     const [email, setEmail] = useState("");
@@ -16,9 +17,41 @@ const Register = (props) => {
         history.push("/login");
     }
 
+    const isValidInputs = () => {
+        if (!email) {
+            toast.error("Email is required");
+            return false;
+        }
+        if (!phone) {
+            toast.error("Phone is required");
+            return false;
+        }
+        if (!password) {
+            toast.error("Password is required");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            toast.error("Your password is not the same");
+            return false;
+        }
+
+        let regx = /^\S+@\S+\.\S+$/;
+        if (!regx.test(email)) {
+            toast.error("Please enter a valid email address");
+            return false;
+        }
+
+        return true;
+    }
+
     const handleRegister = () => {
-        let userData = { email, phone, username, password };
-        console.log("check user data", userData);
+        let check = isValidInputs();
+        if (check) {
+            let userData = { email, phone, username, password };
+            console.log("check user data", userData);
+        }
+
     }
     useEffect(() => {
         // axios.get("http://localhost:8081/api/test-api").then(data => {
@@ -66,6 +99,7 @@ const Register = (props) => {
                             <label>Pasword</label>
                             <input type="password" className="form-control" placeholder="Password"
                                 value={password} onChange={(event) => setPassword(event.target.value)}
+                                required
                             />
                         </div>
                         <div className="form-group">
