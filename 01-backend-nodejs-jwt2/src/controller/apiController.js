@@ -4,6 +4,10 @@ const testAPI = (req, res) => {
         data: "Trung Mai"
     })
 }
+
+const handleRegister = (req, res) => {
+    console.log("call me", req.body);
+}
 module.exports = {
-    testAPI
+    testAPI, handleRegister
 }
