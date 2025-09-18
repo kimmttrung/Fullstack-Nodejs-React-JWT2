@@ -39,6 +39,9 @@ const handleRegister = async (req, res) => {
         })
     }
 }
+const handleLogin = async (req, res) => {
+    console.log("check", req.body);
+}
 module.exports = {
-    testAPI, handleRegister
+    testAPI, handleRegister, handleLogin
 }
