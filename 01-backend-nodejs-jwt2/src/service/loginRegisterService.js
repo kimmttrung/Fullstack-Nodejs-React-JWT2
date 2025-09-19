@@ -90,7 +90,7 @@ const handleUserLogin = async (rawData) => {
             let isCorrectPassword = checkPassword(rawData.password, user.password);
             if (isCorrectPassword === true) {
                 return {
-                    EM: 'ok',
+                    EM: 'Wellcome to my friend',
                     EC: 0,
                     DT: ''
                 }
