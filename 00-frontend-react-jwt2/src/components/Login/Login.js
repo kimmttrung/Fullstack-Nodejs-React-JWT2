@@ -1,7 +1,7 @@
 import "./Login.scss"
 import { useHistory } from "react-router-dom";
 import TeaLogin from "../../assets/img/LoginTea.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import { loginUser } from "../../service/userService";
 
@@ -42,11 +42,25 @@ const Login = (props) => {
             }
             sessionStorage.setItem('account', JSON.stringify(data));
             history.push("/users");
+            window.location.reload();
         }
         if (res && res.data && +res.data.EC !== 0) {
             toast.error(res.data.EM);
         }
     }
+    const handlePressEnter = (event) => {
+        if (event.charCode === 13 && event.code === 'Enter') {
+            handleLogin();
+        }
+    }
+
+    useEffect(() => {
+        let session = sessionStorage.getItem('account');
+        if (session) {
+            history.push('/home');
+            window.location.reload();
+        }
+    }, [])
     return (
         <div className="login-container">
             <div className="container">
@@ -80,6 +94,7 @@ const Login = (props) => {
                             className={objValidInput.isValidPassword ? "form-control" : "is-invalid form-control"}
                             placeholder="Password"
                             value={password} onChange={(event) => setPassword(event.target.value)}
+                            onKeyPress={(event) => handlePressEnter(event)}
                         />
                         <button className="btn btn-primary"
                             onClick={() => handleLogin()}
