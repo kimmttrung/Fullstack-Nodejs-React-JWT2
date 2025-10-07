@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import './Users.scss';
 import { fetchAllUser } from '../../service/userService';
-
+import ReactPaginate from 'react-paginate';
 
 const Users = () => {
 
@@ -19,6 +19,10 @@ const Users = () => {
             setListUsers(res.data.DT);
             console.log("check res", res.data);
         }
+    }
+
+    const handlePageChange = (event) => {
+
     }
 
     return (
@@ -64,15 +68,27 @@ const Users = () => {
                     </table>
                 </div>
                 <div className='user-footer'>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
+                    <ReactPaginate
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        // pageCount={pageCount}
+                        marginPagesDisplayed={3}
+                        pageRangeDisplayed={4}
+                        pageCount={50}
+                        onPageChange={handlePageChange}
+                        containerClassName="pagination"
+                        activeClassName="active"
+                    // forcePage={pageOffset}
+                    />
                 </div>
             </div>
         </div>
