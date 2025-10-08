@@ -52,11 +52,9 @@ const getAllUserWithPaginate = async (page, limit) => {
             users: rows
         }
 
-        console.log("check data", data);
-
         return {
-            EM: 'Something wrongs with server ',
-            EC: 1,
+            EM: 'ok fetch user',
+            EC: 0,
             DT: data,
         }
     } catch (error) {
