@@ -4,20 +4,21 @@ import Modal from 'react-bootstrap/Modal';
 const ModalDelete = (props) => {
     return (
         <>
-            <Modal.Dialog show={props.show}>
+            <Modal show={props.show} onHide={props.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>
+                        Confirm Delete User
+                    </Modal.Title>
+
                 </Modal.Header>
-
                 <Modal.Body>
-                    <p>Modal body text goes here.</p>
+                    Are you sure delete this user :{props.dataModal.email}?
                 </Modal.Body>
-
                 <Modal.Footer>
-                    <Button variant="secondary">Close</Button>
-                    <Button variant="primary">Save changes</Button>
+                    <Button variant='secondary' onClick={props.handleClose}>Close</Button>
+                    <Button variant='primary' onClick={props.confirmDeleteUser}>Confirm</Button>
                 </Modal.Footer>
-            </Modal.Dialog>
+            </Modal>
         </>
     )
 }

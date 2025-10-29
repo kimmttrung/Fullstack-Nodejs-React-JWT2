@@ -14,6 +14,7 @@ const Users = () => {
     const [totalPages, setTotalPages] = useState(0);
 
     const [isShowModalDelete, setIsShowModalDelete] = useState(false);
+    const [dataModal, setDataModal] = useState({});
 
     useEffect(() => {
         fetchUser();
@@ -34,11 +35,23 @@ const Users = () => {
     }
 
     const handleDeleteUser = async (user) => {
+        setDataModal(user);
+        setIsShowModalDelete(true);
+
+    }
+
+    const handleClose = () => {
+        setCurrentPage(false);
+        setDataModal({});
+    }
+
+    const confirmDeleteUser = async (user) => {
         let res = await deleteUser(user);
         console.log("check delete user", res);
         if (res && res.data.EC === 0) {
             toast.success(res.data.EM);
             await fetchUser();
+            setIsShowModalDelete(false);
         } else {
             toast.error(res.data.EM)
         }
@@ -121,7 +134,12 @@ const Users = () => {
                     </div>
                 </div>
             </div>
-            <ModalDelete show={isShowModalDelete} />
+            <ModalDelete
+                show={isShowModalDelete}
+                handleClose={handleClose}
+                confirmDeleteUser={confirmDeleteUser}
+                dataModal={dataModal}
+            />
         </>
 
 
